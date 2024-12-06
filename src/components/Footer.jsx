@@ -2,7 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 
 const Footer = () => {
   return (
-    <Container className="fixed-bottom mb-3">
+    <Container className=" pb-3" style={{ marginTop: "50px" }}>
       <Row className="d-flex">
         <Col className="col-3 justify-content-end">
           <img

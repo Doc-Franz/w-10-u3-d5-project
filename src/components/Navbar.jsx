@@ -12,7 +12,7 @@ const Navbar = (props) => {
   };
 
   return (
-    <Container className="fixed-top mt-4">
+    <Container className="fixed-top pt-4">
       <Row className="d-flex justify-content-between align-items-start">
         <Col className="col-4 d-flex align-items-center">
           <Form onSubmit={handleSubmit} className="d-flex align-items-center">

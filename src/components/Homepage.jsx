@@ -10,6 +10,8 @@ const Homepage = () => {
   const [locationId, setLocationId] = useState("");
   const [isInvalidLocation, setIsInvalidLocation] = useState("");
 
+  const [weatherData, setWeatherData] = useState(null);
+
   const navigate = useNavigate();
 
   const fetchLocation = () => {
@@ -32,6 +34,19 @@ const Homepage = () => {
         setIsInvalidLocation("The location is not valid. Please enter a new value");
       });
   };
+
+  //Recupero i dati dalla pagina Details
+  const handleStorage = () => {
+    const weatherDataFromStorage = JSON.parse(sessionStorage.getItem("weatherData"));
+    if (weatherDataFromStorage) {
+      setWeatherData(weatherDataFromStorage);
+      console.log(weatherData);
+    }
+  };
+
+  useEffect(() => {
+    handleStorage();
+  }, []);
 
   useEffect(() => {
     if (location) {
@@ -87,9 +102,47 @@ const Homepage = () => {
             </Row>
           </Col>
         </Row>
+        <>
+          <Row className="d-flex flex-row pb-3" style={{ marginTop: "100px" }}>
+            {weatherData &&
+              weatherData.length > 0 &&
+              weatherData.map(
+                (dayweather, index) =>
+                  dayweather.dt_txt.endsWith("12:00:00") && (
+                    <Col key={index} className="d-flex flex-column fs-4 text-center">
+                      <p>
+                        {index === 0 ? "Today" : new Date(new Date().setDate(new Date().getDate() + index)).toLocaleDateString("en-US", { weekday: "long" })}
+                      </p>
+                      <img src={`http://openweathermap.org/img/wn/${dayweather.weather[0].icon}.png`} alt="Weather icon" />
+                      <p>{Math.floor(dayweather.main.temp_max - 273.15)} °C</p>
+                      <p>{Math.floor(dayweather.main.temp_min - 273.15)} °C</p>
+                    </Col>
+                  )
+              )}
+          </Row>
+        </>
+        {/* <Row>
+          <Col> {weatherData && <h1>{weatherData[0].main.temp}</h1>}</Col>
+        </Row> */}
       </Container>
     </>
   );
 };
 
 export default Homepage;
+
+{
+  /* <Row className="d-flex flex-row" style={{ marginTop: "100px" }}>
+        {weather.map(
+          (dayweather, index) =>
+            dayweather.dt_txt.endsWith("12:00:00") && (
+              <Col key={index} className="d-flex flex-column fs-4 text-center">
+                <p>{index === 0 ? "Today" : new Date(new Date().setDate(new Date().getDate() + index)).toLocaleDateString("en-US", { weekday: "long" })}</p>
+                <img src={`http://openweathermap.org/img/wn/${dayweather.weather[0].icon}.png`} alt="Weather icon" />
+                <p>{Math.floor(dayweather.main.temp_max - 273.15)} °C</p>
+                <p>{Math.floor(dayweather.main.temp_min - 273.15)} °C</p>
+              </Col>
+            )
+        )}
+      </Row> */
+}

@@ -29,7 +29,7 @@ const Details = () => {
       .then((weather) => {
         setCityName(weather.city.name);
         setWeather(weather.list);
-        // sessionStorage.setItem("weatherData", weather.list);
+        sessionStorage.setItem("weatherData", JSON.stringify(weather.list));
       })
       .catch((err) => {
         console.log(err);

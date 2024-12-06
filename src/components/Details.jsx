@@ -46,6 +46,7 @@ const Details = () => {
         <Col className="d-flex align-items-center">
           <Link to="/">
             <GeoAlt color="gray" className="me-3 mb-3 search-location" style={{ cursor: "pointer", width: "25px", height: "25px" }} />
+            {/* Reindirizza alla Homepage */}
           </Link>
           <p className="fs-4">{cityName}</p>
         </Col>

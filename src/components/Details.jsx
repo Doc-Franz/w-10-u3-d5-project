@@ -43,11 +43,11 @@ const Details = () => {
   return (
     <Container className="mt-4">
       <Row className="d-flex justify-content-between align-items-start">
-        <Col className="d-flex align-items-center">
-          <Link to="/">
+        <Col>
+          <Link to="/" style={{ textDecoration: "none" }} className="d-flex align-items-center">
             <GeoAlt color="gray" className="me-3 mb-3 search-location" style={{ cursor: "pointer", width: "25px", height: "25px" }} />
+            <p className="fs-4">{cityName}</p>
           </Link>
-          <p className="fs-4">{cityName}</p>
         </Col>
         <Col className="d-flex justify-content-end align-items-start">
           <Clock color="gray" className="me-3 mt-1" style={{ cursor: "pointer", width: "25px", height: "25px" }} />
@@ -65,7 +65,7 @@ const Details = () => {
           </Col>
           <Col className="text-center">
             {" "}
-            <img src={`http://openweathermap.org/img/wn/${weather[0].weather[0].icon}.png`} style={{ width: "100px", height: "100px" }} />
+            <img src={`http://openweathermap.org/img/wn/${weather[0].weather[0].icon}.png`} style={{ width: "150px", height: "150px" }} />
           </Col>
           <Col>
             <Row>

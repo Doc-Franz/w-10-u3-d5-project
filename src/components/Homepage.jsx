@@ -22,7 +22,6 @@ const Homepage = () => {
         }
       })
       .then((location) => {
-        // console.log(location.weather[0].description);
         setLon(location.coord.lon);
         setLat(location.coord.lat);
         setLocationId(location.id);

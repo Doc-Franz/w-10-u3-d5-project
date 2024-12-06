@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <Container className="fixed-bottom mb-3">
       <Row className="d-flex">
-        <Col>
+        <Col className="col-3 justify-content-end">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Ilmeteo_logo.png/200px-Ilmeteo_logo.png"
             style={{ width: "100px", height: "100px" }}

@@ -28,8 +28,8 @@ const Details = () => {
       })
       .then((weather) => {
         setCityName(weather.city.name);
-
         setWeather(weather.list);
+        // sessionStorage.setItem("weatherData", weather.list);
       })
       .catch((err) => {
         console.log(err);
@@ -43,11 +43,11 @@ const Details = () => {
   return (
     <Container className="mt-4">
       <Row className="d-flex justify-content-between align-items-start">
-        <Col>
-          <Link to="/" style={{ textDecoration: "none" }} className="d-flex align-items-center">
+        <Col className="d-flex align-items-center">
+          <Link to="/">
             <GeoAlt color="gray" className="me-3 mb-3 search-location" style={{ cursor: "pointer", width: "25px", height: "25px" }} />
-            <p className="fs-4">{cityName}</p>
           </Link>
+          <p className="fs-4">{cityName}</p>
         </Col>
         <Col className="d-flex justify-content-end align-items-start">
           <Clock color="gray" className="me-3 mt-1" style={{ cursor: "pointer", width: "25px", height: "25px" }} />
@@ -89,18 +89,18 @@ const Details = () => {
           </Col>
         </Row>
       )}
-      <Row className="d-flex flex-row " style={{ marginTop: "100px" }}>
-        {weather
-          .filter((_, index) => index % 8 === 0)
-          .map((dayweather, index) => (
-            <Col key={index} className="d-flex flex-column fs-4 text-center">
-              <p>{index === 0 ? "Today" : new Date(date.setDate(new Date().getDate() + index)).toLocaleDateString("en-US", { weekday: "long" })}</p>{" "}
-              {/* Questa ammetto che non è farina del mio sacco */}
-              <img src={`http://openweathermap.org/img/wn/${dayweather.weather[0].icon}.png`} />
-              <p>{Math.floor(dayweather.main.temp_max - 273.15)} °C</p>
-              <p>{Math.floor(dayweather.main.temp_min - 273.15)} °C</p>
-            </Col>
-          ))}
+      <Row className="d-flex flex-row" style={{ marginTop: "100px" }}>
+        {weather.map(
+          (dayweather, index) =>
+            dayweather.dt_txt.endsWith("12:00:00") && (
+              <Col key={index} className="d-flex flex-column fs-4 text-center">
+                <p>{index === 0 ? "Today" : new Date(new Date().setDate(new Date().getDate() + index)).toLocaleDateString("en-US", { weekday: "long" })}</p>
+                <img src={`http://openweathermap.org/img/wn/${dayweather.weather[0].icon}.png`} alt="Weather icon" />
+                <p>{Math.floor(dayweather.main.temp_max - 273.15)} °C</p>
+                <p>{Math.floor(dayweather.main.temp_min - 273.15)} °C</p>
+              </Col>
+            )
+        )}
       </Row>
     </Container>
   );
